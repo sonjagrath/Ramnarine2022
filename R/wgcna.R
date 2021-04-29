@@ -385,6 +385,8 @@ dev.off()
 
 # associate finale module colors
 moduleColors <- mergedColors
+write.csv(moduleColors, file = paste(files, "/", "moduleColors.csv", sep = ""))
+
 colorOrder <- c("grey", standardColors(50))
 moduleLabels <- match(moduleColors, colorOrder)-1
 MEs <- merge$newMEs
@@ -526,6 +528,8 @@ g4reac <- AnnotationDbi::select(org.Dm.eg.db,
                                 keytype = "ENSEMBL",
                                 columns = c("ENSEMBL", "ENTREZID")) %>%
     dplyr::left_join(module2Gene, by = c("ENSEMBL" = "gene"))
+# save as csv file (-> needed for functional annotation analysis)
+write.csv(g4reac, file = paste("../", files, "/", "g4reac.csv", sep = ""))
 
 ## Create gene list (necessary for plot annotations with fold change of genes)
 ## For gene set enrichment analysis, we need a ranked list of genes which we
