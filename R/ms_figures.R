@@ -17,10 +17,9 @@ mergedModuleSizes <- ggplot(df , aes(x = reorder(dc, n),
   theme(panel.border = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
-  ggtitle("Merged Module sizes") +
   ylab("Number of genes") +
   xlab("") +
-  geom_text(aes(label=n),
+  geom_text(aes(label = n),
             color = "black",
             size = 10/.pt,
             family = "sans",
