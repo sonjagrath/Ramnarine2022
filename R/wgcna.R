@@ -21,10 +21,13 @@
 
 # DESeq2 analysis
 library(DESeq2)
+
 # WGCNA analysis
 library(WGCNA)
+
 # Data preparation
 library(tidyverse)
+
 # Functional annotation
 # BiocManager::install("ReactomePA")
 # BiocManager::install("org.Hs.eg.db")
@@ -33,6 +36,7 @@ library(tidyverse)
 library(ReactomePA)
 library(org.Hs.eg.db)
 library(org.Dm.eg.db)
+
 # Visualization
 library(RColorBrewer)
 library(flashClust)
@@ -41,7 +45,7 @@ library(cowplot)
 
 # Load self-defined functions
 
-#source("./own_functions.R")
+source("own_functions.R")
 
 # Data preparation
 
