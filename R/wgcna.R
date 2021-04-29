@@ -7,7 +7,7 @@
 ## Input:
 ### count data: ALL_GCounts_M9sampleremoved.csv
 ### metadata: metadata.csv
-## Last update: 2021-04-28
+## Last update: 2021-04-29
 
 ################################################################################
 
@@ -45,7 +45,7 @@ library(cowplot)
 
 # Load self-defined functions
 
-source("own_functions.R")
+source("R/own_functions.R")
 
 # Data preparation
 
