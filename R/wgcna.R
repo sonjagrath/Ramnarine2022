@@ -78,7 +78,7 @@ type = "signed"
 dir.create("results")
 dir.create("results/figures")
 dir.create("results/files")
-# use to save figures and files
+# used to save figures and files
 figures <- "results/figures"
 files <- "results/files"
 
