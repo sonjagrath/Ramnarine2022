@@ -1,4 +1,4 @@
-# oxidative_stress_wgcna
+# oxidative_stress
 
 This repository contains data and scripts for the manuscript:
  
