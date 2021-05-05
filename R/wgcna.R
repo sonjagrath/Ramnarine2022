@@ -387,10 +387,10 @@ dev.off()
 # associate finale module colors
 moduleColors <- mergedColors
 
-    sink(file = "moduleColors.txt")
-    moduleColors
-    dev.off()
+write.table(moduleColors, "moduleColors.txt")
+test <- read.table("moduleColors.txt")
 
+#moduleColors <- read.table("moduleColors.txt", sep = "")
 colorOrder <- c("grey", standardColors(50))
 moduleLabels <- match(moduleColors, colorOrder)-1
 MEs <- merge$newMEs
