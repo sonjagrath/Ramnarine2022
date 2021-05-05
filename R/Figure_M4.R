@@ -35,7 +35,7 @@ mergedModuleSizes <- ggplot(df , aes(x = reorder(dc, n),
                                  face = "bold"),
         aspect.ratio = 1) # square plot area
 # save svg version
-svg("../manuscript/figures/mergedModuleSizes.svg", width = 10, height = 10)
+svg("../manuscript/figures/figure_4A.svg", width = 10, height = 10)
 mergedModuleSizes
 dev.off()
 
@@ -61,7 +61,11 @@ p
 dev.off()
 
 # Figure 4C
-complete_visualization(color = "turquoise",
+p <- complete_visualization(color = "turquoise",
                        nr_categories = 15,
                        type = "dotplot",
                        path = my_path)
+# save svg version
+svg("../manuscript/figures/figure_4C.svg", width = 10, height = 10)
+p
+dev.off()
