@@ -1,19 +1,19 @@
 ################ Main Figure 1 #######################
-#Mortality MSB at 48 hours 
-#checking first indel comparisons to get p-values for merged plot 
+#Mortality MSB at 48 hours
+#checking first indel comparisons to get p-values for merged plot
 
 #tolerance plot of different lines at 48 hours
-work_direct <- "C:/Users/Tim/Desktop/R_working_directory/MSB_stress_data"
-work_direct
-setwd(work_direct)
 
-mun <- read_excel("MSB_Munich.xlsx")
-cyp <- read_excel("MSB_Cyprus.xlsx")
-kl <- read_excel("MSB_KL.xlsx")
-zi <- read_excel("MSB_ZI.xlsx")
+library(readxl) # needed for read_excel()
+library(ggplot2)
+
+mun <- read_excel("../data/phenotyping/MSB_Munich.xlsx")
+cyp <- read_excel("../data/phenotyping/MSB_Cyprus.xlsx")
+kl <- read_excel("../data/phenotyping/MSB_KL.xlsx")
+zi <- read_excel("../data/phenotyping/MSB_ZI.xlsx")
 
 
-#plotting stress vials only 
+#plotting stress vials only
 #controls recorded (See separate excel file) but no death in these vials during experiment
 #--> does not affect the mortality (%) in stress vials
 
@@ -27,14 +27,15 @@ m9_plot <- ggplot(s1_48, aes(x = as.factor(Time), y = mortality, fill=genotype))
   ylab("Mortality")+
   ggtitle("MUNICH 9, GERMANY")+
   theme(text = element_text(size=15))+
-  stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
+  # stat_compare_means comes from ggpubr
+  ggpubr::stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
   scale_fill_manual(values=c("#74ADD1", "#5AAE61"),
                     name="Genotype",
                     labels=c("Deletion", "Non-deletion"))+
   theme(panel.background = element_blank())+
   scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
   theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(face="bold", 
+        axis.text.y = element_text(face="bold",
                                    size=15))
 
 
@@ -46,15 +47,15 @@ m12_plot <- ggplot(s2_48, aes(x = as.factor(Time), y = mortality, fill=genotype)
   xlab("") +
   ylab("")+
   ggtitle("MUNICH 12, GERMANY")+
-  theme(text = element_text(size=15))+ 
-  stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
+  theme(text = element_text(size=15))+
+  ggpubr::stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
   scale_fill_manual(values=c("#74ADD1", "#5AAE61"),
                     name="Munich 12",
                     labels=c("Deletion", "Non-deletion"))+
   theme(panel.background = element_blank())+
   scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
   theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(face="bold", 
+        axis.text.y = element_text(face="bold",
                                    size=15))
 
 
@@ -67,15 +68,15 @@ kl_plot <- ggplot(s3_48, aes(x = as.factor(strain), y = mortality, fill=genotype
   ylab("Mortality")+
   ggtitle("KUALA LUMPUR, MALAYSIA")+
   theme(text = element_text(size=15))+
-  stat_compare_means(label = "p.format", label.y = 1.05,label.x = 1.5, size = 5, method = "wilcox.test" )+
+  ggpubr::stat_compare_means(label = "p.format", label.y = 1.05,label.x = 1.5, size = 5, method = "wilcox.test" )+
   scale_fill_manual(values=c("#74ADD1", "#5AAE61"),
                     name="Genotype",
                     labels=c("Deletion", "Non-deletion"))+
   theme(panel.background = element_blank())+
-  scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+ 
-  theme(axis.text.x = element_text(face="bold", 
+  scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
+  theme(axis.text.x = element_text(face="bold",
                                    size=15, angle=45),
-        axis.text.y = element_text(face="bold", 
+        axis.text.y = element_text(face="bold",
                                    size=15))
 #C2
 
@@ -85,15 +86,15 @@ c2_plot <- ggplot(s4_48, aes(x = as.factor(Time), y = mortality, fill=genotype))
   xlab("") +
   ylab("")+
   ggtitle("NICOSIA, CYPRUS")+
-  theme(text = element_text(size=15))+ 
-  stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
+  theme(text = element_text(size=15))+
+  ggpubr::stat_compare_means(label = "p.format", label.y = 1.05, size = 5, method = "wilcox.test" )+
   scale_fill_manual(values=c("#74ADD1", "#5AAE61"),
                     name="Genotype",
                     labels=c("Deletion", "Non-deletion"))+
   theme(panel.background = element_blank())+
   scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
   theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(face="bold", 
+        axis.text.y = element_text(face="bold",
                                    size=15))
 
 
@@ -105,20 +106,20 @@ zi_plot <- ggplot(s5_48, aes(factor(strain), mortality)) +
   ylab("Mortality")+
   ggtitle("SIAVONGA, ZAMBIA")+
   theme(text = element_text(size=15))+
-  scale_fill_manual(name = "",values = c("#5AAE61"), 
+  scale_fill_manual(name = "",values = c("#5AAE61"),
                     labels =c("Non-deletion"))+
   theme(panel.background = element_blank())+
-  scale_y_continuous(limits = c(0, 1.6), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+ 
-  theme(axis.text.x = element_text(face="bold", 
+  scale_y_continuous(limits = c(0, 1.6), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
+  theme(axis.text.x = element_text(face="bold",
                                    size=15, angle=45),
-        axis.text.y = element_text(face="bold", 
+        axis.text.y = element_text(face="bold",
                                    size=15))
 
 
 ##########combining all lines into on plot####
 
-#computed the p-values between indel lines for each group as above, 
-#and manually added the p value symbols with annotate when 
+#computed the p-values between indel lines for each group as above,
+#and manually added the p value symbols with annotate when
 #re-plotting the separate plots into one figure (below)
 
 #"#7570B3", Germany
@@ -141,7 +142,7 @@ merge1_plot <- ggplot(merge1, aes(factor(strain), mortality)) +
   theme(axis.text.x = element_text(size=10,angle = 35, hjust=1))+
   scale_y_continuous(limits = c(0, 1.1), breaks = c(0,0.2,0.4,0.6,0.8,1.00))+
   theme(axis.text.y = element_text(size=10))+
-  theme(panel.background = element_blank())+ 
+  theme(panel.background = element_blank())+
   scale_x_discrete(labels = c(expression("M12", "M12"*Delta*"", "M9", "M9"*Delta*"", "C2", "C2"*Delta*"", "KL2", "KL1"*Delta*"", "ZI197", "ZI254", "ZI273", "ZI418")))+
   theme(axis.line = element_line(color="black"))+
   theme(legend.position = "none")
@@ -154,22 +155,22 @@ merge2 <- merge1_plot + annotate("text", x = 1.5, y = 1.06, label = "***", size 
   annotate("text", x = 1.5, y = 1.08, label = "___", size = 5)+
   annotate("text", x = 3.5, y = 1.08, label = "___", size = 5)+
   annotate("text", x = 7.5, y = 1.08, label = "___", size = 5)
-merge2 
+merge2
 
-ggsave(file = "C:/Users/Tim/Desktop/2020Publication/Figures_2020pub/msb_mortality.svg", 
+ggsave(file = "msb_mortality.svg",
        plot = merge2, device = "svg",
        scale = 1,
        dpi = 200,
        limitsize = TRUE)
 
 
-ggsave(file = "C:/Users/Tim/Desktop/2020Publication/Figures_2020pub/msb_mortality.pdf", 
+ggsave(file = "msb_mortality.pdf",
        plot = merge2, device = "pdf",
        scale = 1,
        dpi = 200,
-       limitsize = TRUE) 
+       limitsize = TRUE)
 
-ggsave(file = "C:/Users/Tim/Desktop/2020Publication/Figures_2020pub/msb_mortality.eps", 
+ggsave(file = "msb_mortality.eps",
        plot = merge2, device = "eps",
        scale = 1,
        dpi = 200,
