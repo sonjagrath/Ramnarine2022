@@ -45,19 +45,19 @@ library(cowplot)
 
 # Load self-defined functions
 
-source("R/own_functions.R")
+source("own_functions.R")
 
 # Data preparation
 
 # Load count data
-rawcounts <- read.csv("data/ALL_GCounts_M9sampleremoved.csv")
+rawcounts <- read.csv("../data/ALL_GCounts_M9sampleremoved.csv")
 
 # Set rownames to first column (column has title and contains Flybase ids)
 rownames(rawcounts) <- rawcounts[, 1]
 rawcounts <- rawcounts[,-1]
 
 # Load meta data
-metadata <- read.csv("data/metadata.csv", row.names = 1)
+metadata <- read.csv("../data/metadata.csv", row.names = 1)
 
 # Use the match() function to reorder the columns of the raw counts
 reorder_idx <- match(rownames(metadata), colnames(rawcounts[4:50, ]))
@@ -372,12 +372,13 @@ mergedColors <- merge$colors
 # Plot gene dendrogram with new & old module association
 # WGCNA function
 dendroAndColors <- plotDendroAndColors(geneTree,
-                    cbind(dynamicColors, mergedColors),
-                    c("DynamicTree Cut", "Merged dynamic"),
-                    dendroLabels = FALSE,
-                    hang = 0.03,
-                    addGuide = TRUE,
-                    guideHang = 0.05)
+                                       cbind(dynamicColors,
+                                             mergedColors),
+                                       c("DynamicTree Cut", "Merged dynamic"),
+                                       dendroLabels = FALSE,
+                                       hang = 0.03,
+                                       addGuide = TRUE,
+                                       guideHang = 0.05)
 
 png(paste(figures, "/", "clusterDendrogram.png", sep = ""))
 dendroAndColors
@@ -385,7 +386,10 @@ dev.off()
 
 # associate finale module colors
 moduleColors <- mergedColors
-write.csv(moduleColors, file = paste(files, "/", "moduleColors.csv", sep = ""))
+
+    sink(file = "moduleColors.txt")
+    moduleColors
+    dev.off()
 
 colorOrder <- c("grey", standardColors(50))
 moduleLabels <- match(moduleColors, colorOrder)-1
