@@ -1,11 +1,25 @@
+################################################################################
+# Table_1_and_SuppTables_1-4.R
+################################################################################
+
+## Principal Component Analysis - M9 sample removed
+## Authors: Timothy Ramnarine
+## Input:
+### count data: ALL_GCounts_M9sampleremoved.csv
+### metadata: metadata_M9_excluded.csv
+## Last update: 2021-05-12
+
+################################################################################
+
+
 #Supplemental Table 1 & 2 (DEG tables) Outlier removed (treatment only)
 #Supplemental Table 3 & 4 - Lists from DEG tables as input to --> Flymine (GO terms) + REVIGO (GO term summary)
 
-library("DESeq2")
+library(DESeq2)
 library(readxl)
 library(tidyr)
 
-allcounts <- read_excel("../data/ALL_GCounts_M9sampleremoved.xlsx")
+allcounts <- read.csv("../data/ALL_GCounts_M9sampleremoved.csv")
 
 
 allcounts$newhead <- paste(allcounts$FBgn, allcounts$CGnum, allcounts$Chrom, allcounts$Length, sep=",")
@@ -21,16 +35,16 @@ samples <- read.csv("../data/metadata_M9_excluded.csv")
 
 
 ### using one term ###
-dds4 <- DESeqDataSetFromMatrix(countData = counts, 
+dds <- DESeqDataSetFromMatrix(countData = counts, 
                                colData = samples, 
                                design = ~treatment)
-dds_4 <- DESeq(dds4, betaPrior = TRUE)
+dds <- DESeq(dds, betaPrior = TRUE)
 
 
 #contrasting all stress samples against control samples 
 
-all_s_unorder <- results(dds_4, contrast = c("treatment","s", "c"), alpha = 0.05)
-all_s <- all_s_unorder[order(all_s_unorder$padj),]
+all_s_unorder <- results(dds, contrast = c("treatment", "s", "c"), alpha = 0.05)
+all_s <- all_s_unorder[order(all_s_unorder$padj), ]
 summary(all_s)
 
 #out of 13860 with nonzero total read count
