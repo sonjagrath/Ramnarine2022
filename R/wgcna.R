@@ -92,6 +92,7 @@ dds <- DESeqDataSetFromMatrix(countData = reordered_rawcounts,
 # Run the DESeq2 analysis
 dds <- DESeq(dds)
 resultsNames(dds)
+# [1] "Intercept"        "treatment_S_vs_C"
 
 # Create DESeq result
 res <- results(dds,
@@ -578,7 +579,7 @@ create_color_folder(my_path, "green")
 
 # Create plots (self-defined functions have to be loaded)
 
-# yellow
+# pink
 complete_visualization(color = "pink",
                        nr_categories = 15,
                        type = "dotplot",
@@ -647,6 +648,86 @@ complete_visualization(color = "green",
                        nr_categories = 5,
                        type = "cnetplot",
                        path = my_path)
+
+#-------------------------------------------------------
+
+# SVG Figures
+# Turquoise
+color <- "turquoise"
+x <- module_enrich_pathway(color)
+p <- dotplot(x)
+svg("turquoise_dotplot.svg", width = 10, height = 10)
+print(p)
+dev.off()
+p <- cnetplot(x,
+              foldChange = geneList, 
+              layout = "kk",
+              showCategory = 10, 
+              node_label = "all",
+              type = "cnetplot"
+)
+svg("turquoise_cnetplot.svg", width = 15, height = 15)
+print(p)
+dev.off()
+
+# Blue
+color <- "blue"
+x <- module_enrich_pathway(color)
+p <- dotplot(x)
+svg("blue_dotplot.svg", width = 15, height = 10)
+print(p)
+dev.off()
+p <- cnetplot(x,
+              foldChange = geneList, 
+              layout = "kk",
+              showCategory = 8, 
+              node_label = "all",
+              type = "cnetplot"
+)
+colours <- c("#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c")
+
+min.value <- floor(min(p$data$color, na.rm = TRUE) )
+max.value <- ceiling(max(p$data$color, na.rm = TRUE) )
+p <- p + scale_color_gradientn(name = "fold change",
+                               colours = colours, 
+                               #values = scales::rescale(c(min.value, 0, max.value)),
+                               limits=c(-2, 2),
+                               breaks=c(-2, 0, 2) 
+)
+
+svg("blue_cnetplot.svg", width = 15, height = 15)
+print(p)
+dev.off()
+
+# turquoise
+color <- "turquoise"
+x <- module_enrich_pathway(color)
+p <- dotplot(x)
+svg("turquoise_dotplot.svg", width = 15, height = 10)
+print(p)
+dev.off()
+
+p <- cnetplot(x,
+              foldChange = geneList, 
+              layout = "kk",
+              showCategory = 10, 
+              node_label = "all",
+              type = "cnetplot"
+)
+colours <- c("#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c")
+
+min.value <- floor(min(p$data$color, na.rm = TRUE) )
+max.value <- ceiling(max(p$data$color, na.rm = TRUE) )
+p <- p + scale_color_gradientn(name = "fold change",
+                               colours = colours, 
+                               #values = scales::rescale(c(min.value, 0, max.value)),
+                               limits=c(-2, 2),
+                               breaks=c(-2, 0, 2) 
+)
+
+svg("turquoise_cnetplot.svg", width = 15, height = 15)
+print(p)
+dev.off()
 
 #################
 # Session Info
