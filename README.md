@@ -1,8 +1,8 @@
 # oxidative_stress
 
-This repository contains data and scripts for the manuscript:
+This repository contains data and scripts for the publication:
  
-> Ramnarine, T. J. S., Grath, S., Parsch, J. (in preparation) Natural variation in the transcriptional response of Drosophila melanogaster to oxidative stress. 
+> Ramnarine, T. J. S., Grath, S., Parsch, J. (2022) Natural variation in the transcriptional response of _Drosophila melanogaster_ to oxidative stress. _G3 (Bethesda)_. 12(1): jkab366.
  
 ## Data
 * RNAseq reads
